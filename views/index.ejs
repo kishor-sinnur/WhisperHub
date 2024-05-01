@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Messenger</title>
+    <link rel="stylesheet" href="/color.css">
+</head>
+<body>
+    <h2>All Chats</h2>
+    <div class="chat-container">
+        <form method="get" action="/chats/new">
+            <button>Create New Chat</button>
+        </form>
+        <% for (let chat of chats) { %>
+            <div class="box">
+                <p><strong>From:</strong> <i><%= chat.from %></i></p>
+                <div class="msg">
+                    <p><%= chat.msg %></p>
+                    <form methode="get" action="/chats/<%= chat._id %>/edit">
+                      <button>edit</button>
+                    </form>
+                    <br>
+                    <form method="POST" action="/chats/<%= chat._id %>?_method=DELETE">
+                        <button type="submit">Delete</button>
+                    </form>                    
+                </div>
+                <p><strong>Received by:</strong> <i><%= chat.to %></i></p>
+                <p><%= chat.created_at.toString().split(" ")[4] %></p>
+                <p><%= chat.created_at.toString().split(" ").slice(0,4).join("-") %></p>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>
